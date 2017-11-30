@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-
+using System.Configuration;
 
 namespace StackMates
 {
@@ -12,28 +12,35 @@ namespace StackMates
     class DatabaseHandler
     {
         //Properties för Databas Uppkopling.
-       private static string server = "sql146.main-hosting.eu";
-       private static string database = "u930023931_mydb ";
-       private static string uid = "u930023931_wili";
-       private static string password = "TEKnick2017?";
-       private  string connectionString = @"Server=" + server + ";" + "Database=" + database + ";" + "Uid=" + uid + ";" + "Pwd=" + password + ";" + "protocol = tcp; pooling = false;" + "port = 3306;";
-       private MySqlConnection Connector { get; set; }
-       private MySqlCommand Querry { get; set; }
+       private static MySqlConnection Connector = null;
+        private MySqlCommand Querry { get; set; }
         MySqlDataReader Reader { get; set; }
         // END
      public DatabaseHandler()
         {
             try
             {
+                GetDBConnection();
 
-                Connector = new MySqlConnection(connectionString);
-               
+
 
             }
             catch(Exception e)
             {
                 System.Windows.Forms.MessageBox.Show(e.ToString());
             }
+
+        }
+
+
+        private static MySqlConnection GetDBConnection()
+        {
+            if (Connector == null)
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["conn"].ConnectionString;
+                Connector = new MySqlConnection(connectionString);
+            }
+            return Connector;
         }
 
         public bool CreateUser(string Username, string Name, string Email, string Password)
