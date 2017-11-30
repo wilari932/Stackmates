@@ -303,20 +303,22 @@ namespace StackMates
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            if (Mysqldata.CreateUser(NewUserNameTxtBox.Text, NewNameTxtBox.Text, NewEmailTxtBox.Text, NewPasswordTxtBox.Text))
-            {
-                MessageBox.Show("användaren är Skapad");
-                b.Controls.Clear();
-                RootPanel.Controls.Clear();
-                CreateLoginForm();
-                b.Controls.Add(RootPanel);
-                b.Size = new System.Drawing.Size(510, 510);
-            }
-            else
-            {
-                MessageBox.Show("Gick Inte att skapa");
-            }
+
            
+                    if (Mysqldata.CreateUser(NewUserNameTxtBox.Text, NewNameTxtBox.Text, NewEmailTxtBox.Text, NewPasswordTxtBox.Text))
+                    {
+                        MessageBox.Show("användaren är Skapad");
+                        b.Controls.Clear();
+                        RootPanel.Controls.Clear();
+                        CreateLoginForm();
+                        b.Controls.Add(RootPanel);
+                        b.Size = new System.Drawing.Size(510, 510);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Gick Inte att skapa");
+                    }
+                
         }
 
         private void RegisterLabel_Click(object sender, EventArgs e)

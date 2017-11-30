@@ -17,7 +17,7 @@ namespace StackMates
         private TableLayoutPanel UserPanel2 { get; set; }
         private PictureBox UserPhoto { get; set; }
         private MainForm b;
-        private DatabaseHandler DatabaseHandler = new DatabaseHandler();
+        private DatabaseHandler Database = new DatabaseHandler();
 
         public  UserPage(MainForm a, string user,string password)
         {
@@ -33,7 +33,7 @@ namespace StackMates
 
         private void UserControl()
         {
-            if (!DatabaseHandler.UserLogin(User, UserPassword))
+            if (!Database.UserLogin(User, UserPassword))
             {
                 b.Close();
             }
@@ -63,7 +63,8 @@ namespace StackMates
 
                 Size = new System.Drawing.Size(250, 250),
                 BorderStyle = BorderStyle.Fixed3D,
-
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                
             };
             Label labelUsername = new Label
             {
@@ -82,7 +83,7 @@ namespace StackMates
                 BorderStyle = BorderStyle.Fixed3D,
                 Font = new Font("Arial", 20, FontStyle.Regular),
             };
-
+           Database.ReadUserData(User, UserPassword, labelUsername, UserPhoto);
 
             UserPanel = new TableLayoutPanel
             {
@@ -108,6 +109,7 @@ namespace StackMates
                
 
             };
+
 
 
 

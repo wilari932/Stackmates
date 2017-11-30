@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Windows.Forms;
+using System.Drawing;
+using System.ComponentModel;
+using System.IO;
 
 namespace StackMates
 {
@@ -13,6 +17,8 @@ namespace StackMates
     {
         //Properties för Databas Uppkopling.
        private static MySqlConnection Connector = null;
+        private ITypeDescriptorContext jpegByteArray;
+
         private MySqlCommand Querry { get; set; }
         MySqlDataReader Reader { get; set; }
         // END
@@ -47,6 +53,7 @@ namespace StackMates
         {
             try
             {
+               // (AES_ENCRYPT(@UserName, 'key12346123')
                 Conection(true);
                 Querry = new MySqlCommand("INSERT INTO user (UserName,Name,Email,Password) VALUES (@UserName,@Name,@Email,@Password)", Connector);
 
@@ -95,7 +102,37 @@ namespace StackMates
             }
            
         }
+        public void ReadUserData(string username, string password, Label name , PictureBox userimage)
+        {
+           if( UserLogin( username ,password))
+            {
+                Conection(true);
+                string s = "SELECT * FROM user WHERE UserName = '" + username + "' and (Password = '" + password + "')";
 
+                Querry = new MySqlCommand(s, Connector);
+                Querry.ExecuteNonQuery();
+                MySqlDataReader dataReader = Querry.ExecuteReader();
+
+                if (dataReader.HasRows)
+                {
+                    dataReader.Read();
+                    name.Text = dataReader["UserName"].ToString();
+                    try
+                    {
+                        byte[] data = (byte[])dataReader["UserImage"];
+                        MemoryStream ms = new MemoryStream(data);
+                        userimage.Image = Image.FromStream(ms);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Du äger ingen bild för tilfället");
+                    }
+
+
+                }
+            }
+
+        }
         private void Conection(bool Isopen)
         {
             if (Isopen)
