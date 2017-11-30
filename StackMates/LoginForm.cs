@@ -9,6 +9,8 @@ namespace StackMates
 {
     class LoginForm
     {
+       
+
         //Loginform Objects
         private Button LoginButton { get; set; }
         private TextBox UsernameTxtBox { get; set; }
@@ -22,11 +24,15 @@ namespace StackMates
         private TextBox NewConfirmPasswordTxtBox { get; set; }
         private Button RegisterButton { get; set; }
         //END
-
+        //Other Classes Objects
         private DatabaseHandler Mysqldata = new DatabaseHandler();
         public TableLayoutPanel RootPanel { get; set; }
+        private UserPage UserPage;
         private MainForm b;
-      public  LoginForm(MainForm a)
+        private string User;
+        private string Password;
+        //END
+        public LoginForm(MainForm a)
         {
              b = a;
             InitializeComponent();
@@ -323,7 +329,10 @@ namespace StackMates
         {
            if( Mysqldata.UserLogin(UsernameTxtBox.Text, PasswordTxtBox.Text))
             {
-                MessageBox.Show("Välkomen");
+                User = UsernameTxtBox.Text;
+                Password = PasswordTxtBox.Text; 
+                UserPage = new UserPage(b, User, Password);
+               
                 
             }
             else

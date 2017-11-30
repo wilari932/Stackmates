@@ -9,7 +9,7 @@ namespace StackMates
 {
     class MainForm : Form
     {
-        
+       
        
 
        public MainForm()
@@ -19,5 +19,6 @@ namespace StackMates
             this.Size = new System.Drawing.Size(510, 510);
             
         }
+       
     }
 }
