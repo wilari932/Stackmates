@@ -19,6 +19,7 @@ namespace StackMates
        private  string connectionString = @"Server=" + server + ";" + "Database=" + database + ";" + "Uid=" + uid + ";" + "Pwd=" + password + ";" + "protocol = tcp; pooling = false;" + "port = 3306;";
        private MySqlConnection Connector { get; set; }
        private MySqlCommand Querry { get; set; }
+        MySqlDataReader Reader { get; set; }
         // END
      public DatabaseHandler()
         {
@@ -27,6 +28,7 @@ namespace StackMates
 
                 Connector = new MySqlConnection(connectionString);
                
+
             }
             catch(Exception e)
             {
@@ -34,18 +36,44 @@ namespace StackMates
             }
         }
 
-         public bool UserLogin(string Username, string Password)
+        public bool CreateUser(string Username, string Name, string Email, string Password)
         {
-            Conection(true);
+            try
+            {
+                Conection(true);
+                Querry = new MySqlCommand("INSERT INTO user (UserName,Name,Email,Password) VALUES (@UserName,@Name,@Email,@Password)", Connector);
+
+                Querry.Parameters.AddWithValue("@UserName", Username);
+                Querry.Parameters.AddWithValue("@Name", Name);
+                Querry.Parameters.AddWithValue("@Email", Email);
+                Querry.Parameters.AddWithValue("@Password", Password);
+                Querry.ExecuteReader();
+                System.Windows.Forms.MessageBox.Show("Det gick");
+                Conection(false);
+                return true;
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("Gick EJ");
+                Conection(false);
+                return false;
+               
+            }
+
+        }
+
+        public bool UserLogin(string Username, string Password)
+        {
+           Conection(true);
             Querry = new MySqlCommand("SELECT UserName,Password FROM user where UserName=@UserName and Password=@Password", Connector);
 
                 Querry.Parameters.AddWithValue("@UserName", Username);
 
                 Querry.Parameters.AddWithValue("@Password", Password);
 
-                MySqlDataReader read = Querry.ExecuteReader();
+                Reader = Querry.ExecuteReader();
            
-            if (read.Read())
+            if (Reader.Read())
                 {
                 Conection(false);
                 return true;
@@ -67,7 +95,7 @@ namespace StackMates
             {
                 Connector.Open();
             }
-            else if(Isopen== false)
+            else if (Isopen == false)
             {
                 Connector.Close();
             }

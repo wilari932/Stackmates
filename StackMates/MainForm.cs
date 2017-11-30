@@ -9,13 +9,14 @@ namespace StackMates
 {
     class MainForm : Form
     {
-        LoginForm Login = new LoginForm();
+        
        
 
        public MainForm()
         {
+            LoginForm Login = new LoginForm(this);
             this.Controls.Add(Login.RootPanel);
-            this.Size = new System.Drawing.Size(500, 500);
+            this.Size = new System.Drawing.Size(510, 510);
             
         }
     }
