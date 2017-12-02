@@ -63,7 +63,7 @@ namespace StackMates
             UserPhoto = new PictureBox
             {
 
-                Size = new System.Drawing.Size(300, 300),
+                Size = new System.Drawing.Size(300,300),
                
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Cursor = Cursors.Hand
@@ -180,7 +180,15 @@ namespace StackMates
 
         private void UserPhoto_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Detta Fungerar inte just nu vi jobbar på detta !");
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg|Png(*Png)|*.Png";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                Image img = new Bitmap(open.FileName);
+
+                UserPhoto.Image = img.GetThumbnailImage(300, 300, null, new IntPtr());
+                open.RestoreDirectory = true;
+            }
         }
 
         private void UserPhoto_MouseLeave(object sender, EventArgs e)
