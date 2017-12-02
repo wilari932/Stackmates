@@ -17,7 +17,7 @@ namespace StackMates
             LoginForm Login = new LoginForm(this);
             this.Controls.Add(Login.RootPanel);
             this.Size = new System.Drawing.Size(510, 510);
-
+           
         }
 
     }

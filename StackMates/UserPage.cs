@@ -71,6 +71,8 @@ namespace StackMates
             };
             UserPhoto.MouseEnter += UserPhoto_MouseEnter;
             UserPhoto.MouseLeave += UserPhoto_MouseLeave;
+            UserPhoto.Click += UserPhoto_Click;
+           
          
             Label labelUsername = new Label
             {
@@ -134,6 +136,11 @@ namespace StackMates
 
         }
 
+        private void UserPhoto_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Detta Fungerar inte just nu vi jobbar på detta !");
+        }
+
         private void UserPhoto_MouseLeave(object sender, EventArgs e)
         {
             PictureBox b = (PictureBox)sender;
@@ -144,7 +151,7 @@ namespace StackMates
         {
             Label AddNewPicture;
             UserPhoto.Controls.Add(AddNewPicture = new Label { Text = "Add New Image", Dock = DockStyle.Bottom, FlatStyle = FlatStyle.Flat, BackColor = Color.FromArgb(200, Color.Black), ForeColor = Color.White, Font = new Font("Arial", 20, FontStyle.Regular), Height = 50 });
-          
+            
         }
 
       
