@@ -49,7 +49,7 @@ namespace StackMates
             {
                 ColumnCount = 2,
                 Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(233, 235, 238),
+                BackColor = Color.FromArgb(226, 226, 226),
 
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset
 
@@ -57,14 +57,14 @@ namespace StackMates
 
             };
 
-            RootPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35));
-            RootPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65));
+            RootPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 305));
+            RootPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60));
 
             UserPhoto = new PictureBox
             {
 
-                Size = new System.Drawing.Size(250, 250),
-                BorderStyle = BorderStyle.Fixed3D,
+                Size = new System.Drawing.Size(300, 300),
+               
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Cursor = Cursors.Hand
 
@@ -79,8 +79,7 @@ namespace StackMates
             {
                 ForeColor = Color.Black,
                 Text = "Name: ",
-                Dock = DockStyle.Top,
-                BorderStyle = BorderStyle.Fixed3D,
+                Dock = DockStyle.Top,          
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Height = 40,
                 Width = 20
@@ -92,23 +91,22 @@ namespace StackMates
                 ForeColor = Color.Black,
                 Text = "Account Settings: ",
                 Dock = DockStyle.Top,
-                BorderStyle = BorderStyle.Fixed3D,
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Height = 40,
                 Width = 20
 
             };
-          
+
 
             UserPanel = new TableLayoutPanel
             {
                 RowCount = 3,
                 Dock = DockStyle.Fill,
-              
+               
 
 
             };
-
+            UserPanel.CellPaint += UserPanel_CellPaint;
             UserPanel.Controls.Add(UserPhoto);
             UserPanel.Controls.Add(labelUsername);
             UserPanel.Controls.Add(labelAcoountSettings);
@@ -122,13 +120,41 @@ namespace StackMates
             {
                 RowCount = 3,
                 Dock = DockStyle.Fill,
-              
+                BackColor = Color.FromArgb(34, 34, 34),
 
 
             };
+            TableLayoutPanel SerchPanel = new TableLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                Height = 50,
+                ColumnCount = 2,
+                 BackColor = Color.FromArgb(221, 255, 221),
+            };
+            Label SerchLabertext = new Label
+            {
+              Text =  "Search Person", 
+                Width =180,
+                Anchor = AnchorStyles.Right,
+                Font = new Font("Arial", 15, FontStyle.Regular)
+            };
+            TextBox SearchTextbox = new TextBox {
+
+                Anchor = AnchorStyles.Left,
+                Width = 500,
+                Font = new Font("Arial", 20, FontStyle.Regular)
+
+            };
+            SerchPanel.Controls.Add(SerchLabertext);
+            SerchPanel.Controls.Add(SearchTextbox);
+
+            SerchPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,20));
+            SerchPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80));
 
 
 
+
+            UserPanel2.Controls.Add(SerchPanel);
 
 
             RootPanel.Controls.Add(UserPanel);
@@ -137,6 +163,13 @@ namespace StackMates
 
         }
 
+        private void UserPanel_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            if (e.Row == 0 && e.Column == 0)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.WhiteSmoke), e.CellBounds);
+            }
+        }
 
         private void CreateSaerchEngine()
         {
@@ -166,9 +199,6 @@ namespace StackMates
         UserPhoto.Controls.Add(AddNewPicture = new Button{ Text = "Add New Image", Dock = DockStyle.Bottom, FlatStyle = FlatStyle.Flat, BackColor = Color.FromArgb(200, Color.WhiteSmoke), Font = new Font("Arial", 20, FontStyle.Regular), Height = 50 , Enabled = false });
         }
 
-        private void AddNewPicture_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Detta Fungerar inte just nu vi jobbar på detta !");
-        }
+        
     }
 }
