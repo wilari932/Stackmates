@@ -51,22 +51,45 @@ namespace StackMates
         {
             try
             {
-                // (AES_ENCRYPT(@UserName, 'key12346123')
+                Username = EEnkryption.Encrypt(Username);
+                Password = EEnkryption.Encrypt(Password);
+                Name = EEnkryption.Encrypt(Name);
+                Email = EEnkryption.Encrypt(Email);
+
+
                 Conection(true);
                 Querry = new MySqlCommand("INSERT INTO user (UserName,Name,Email,Password) VALUES (@UserName,@Name,@Email,@Password)", Connector);
 
-                Querry.Parameters.AddWithValue("@UserName", Username);
-                Querry.Parameters.AddWithValue("@Name", Name);
-                Querry.Parameters.AddWithValue("@Email", Email);
-                Querry.Parameters.AddWithValue("@Password", Password);
+                MySqlParameter[] param = new MySqlParameter[4] ;
+
+                for(int i= 0; i< param.Length; i++)
+                {
+                    param[i] = new MySqlParameter();
+                }
+                param[0] = new MySqlParameter();
+                param[0].ParameterName = "@UserName";
+                param[0].Value = Username;
+                param[1].ParameterName = "@Name";
+                param[1].Value = Name;
+                param[2].ParameterName = "@Email";
+                param[2].Value = Email;
+                param[3].ParameterName = "@Password";
+                param[3].Value = Password;
+
+                foreach (MySqlParameter s in param)
+                {
+                 
+                    Querry.Parameters.Add(s);
+                }
+              
                 Querry.ExecuteReader();
                 System.Windows.Forms.MessageBox.Show("Det gick");
                 Conection(false);
                 return true;
             }
-            catch
+            catch(Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("Gick EJ");
+                System.Windows.Forms.MessageBox.Show("Gick EJ" + e.ToString());
                 Conection(false);
                 return false;
 
@@ -76,33 +99,67 @@ namespace StackMates
 
         public bool UserLogin(string Username, string Password)
         {
-            Conection(true);
-            Querry = new MySqlCommand("SELECT UserName,Password FROM user where UserName=@UserName and Password=@Password", Connector);
-
-            Querry.Parameters.AddWithValue("@UserName", Username);
-
-            Querry.Parameters.AddWithValue("@Password", Password);
-
-            Reader = Querry.ExecuteReader();
-
-            if (Reader.Read())
+            try
             {
-                Conection(false);
-                return true;
+
+                Username = EEnkryption.Encrypt(Username);
+                Password = EEnkryption.Encrypt(Password);
+                Conection(true);
+                Querry = new MySqlCommand("SELECT UserName,Password FROM user where UserName=@UserName and Password=@Password", Connector);
+
+                MySqlParameter[] param = new MySqlParameter[2];
+
+                for (int i = 0; i < param.Length; i++)
+                {
+                    param[i] = new MySqlParameter();
+                }
 
 
+                param[0].ParameterName = "@UserName";
+                param[0].Value = Username;
+                param[1].ParameterName = "@Password";
+                param[1].Value = Password;
+                foreach (MySqlParameter s in param)
+                {
+
+                    Querry.Parameters.Add(s);
+                }
+
+
+
+
+
+                Reader = Querry.ExecuteReader();
+
+                if (Reader.Read())
+                {
+                    Conection(false);
+                    return true;
+
+
+                }
+                else
+                {
+                    Conection(false);
+                    return false;
+
+                }
             }
-            else
+            catch(Exception e)
             {
-                Conection(false);
+                MessageBox.Show(e.ToString());
                 return false;
-
             }
+            
+          
+
 
         }
         public void ReadUserData(string username, string password, Label name, PictureBox userimage)
         {
-            if (UserLogin(username, password))
+         
+
+            if (UserLogin(username,password))
             {
                 Conection(true);
                 string s = "SELECT * FROM user WHERE UserName = '" + username + "' and (Password = '" + password + "')";
@@ -114,7 +171,7 @@ namespace StackMates
                 if (dataReader.HasRows)
                 {
                     dataReader.Read();
-                    name.Text = dataReader["UserName"].ToString();
+                    name.Text = EEnkryption.Decrypt(dataReader["UserName"].ToString());
                     try
                     {
                         byte[] data = (byte[])dataReader["UserImage"];

@@ -18,6 +18,7 @@ namespace StackMates
         private PictureBox UserPhoto { get; set; }
         private MainForm b;
         private DatabaseHandler Database = new DatabaseHandler();
+        private Enkryption EEnkryption = new Enkryption();
 
         public UserPage(MainForm a, string user, string password)
         {

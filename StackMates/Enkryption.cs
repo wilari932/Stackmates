@@ -62,15 +62,6 @@ namespace StackMates
 
                 return Convert.ToBase64String(cipherTextBytes);
 
-               
-
-
-             
-
-
-
-
-
             }
                 catch (Exception e)
                 {
@@ -94,7 +85,23 @@ namespace StackMates
 
 
 
+        public string Ph()
+        {
+            string path = @"Resources\Conf.txt";
+            string ph = null;
+            List<string> ReadLines = File.ReadAllLines(path).ToList();
+            foreach (string lines in ReadLines)
+            {
+                string[] entries = lines.Split(',');
+                ph = entries[1];
+                break;
 
+            }
+
+            return ph;
+
+
+            }
 
 
 
