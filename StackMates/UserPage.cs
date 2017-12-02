@@ -48,9 +48,9 @@ namespace StackMates
             {
                 ColumnCount = 2,
                 Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(28, 135, 202),
+                BackColor = Color.FromArgb(233, 235, 238),
 
-
+                CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset
 
 
 
@@ -65,32 +65,43 @@ namespace StackMates
                 Size = new System.Drawing.Size(250, 250),
                 BorderStyle = BorderStyle.Fixed3D,
                 SizeMode = PictureBoxSizeMode.StretchImage,
+                Cursor = Cursors.Hand
+
 
             };
+            UserPhoto.MouseEnter += UserPhoto_MouseEnter;
+            UserPhoto.MouseLeave += UserPhoto_MouseLeave;
+         
             Label labelUsername = new Label
             {
-                ForeColor = Color.White,
+                ForeColor = Color.Black,
                 Text = "Name: ",
-                Dock = DockStyle.Fill,
+                Dock = DockStyle.Top,
                 BorderStyle = BorderStyle.Fixed3D,
                 Font = new Font("Arial", 20, FontStyle.Regular),
+                Height = 40,
+                Width = 20
             };
+            Database.ReadUserData(User, UserPassword, labelUsername, UserPhoto);
 
             Label labelAcoountSettings = new Label
             {
-                ForeColor = Color.White,
+                ForeColor = Color.Black,
                 Text = "Account Settings: ",
-                Dock = DockStyle.Fill,
+                Dock = DockStyle.Top,
                 BorderStyle = BorderStyle.Fixed3D,
                 Font = new Font("Arial", 20, FontStyle.Regular),
+                Height = 40,
+                Width = 20
+
             };
-            Database.ReadUserData(User, UserPassword, labelUsername, UserPhoto);
+          
 
             UserPanel = new TableLayoutPanel
             {
                 RowCount = 3,
                 Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(28, 135, 202),
+              
 
 
             };
@@ -98,15 +109,17 @@ namespace StackMates
             UserPanel.Controls.Add(UserPhoto);
             UserPanel.Controls.Add(labelUsername);
             UserPanel.Controls.Add(labelAcoountSettings);
-            UserPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
-            UserPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 5));
-            UserPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 5));
+            UserPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            UserPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize,0));
+            UserPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize,0));
+
+
 
             UserPanel2 = new TableLayoutPanel
             {
                 RowCount = 3,
                 Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(28, 135, 202),
+              
 
 
             };
@@ -121,5 +134,19 @@ namespace StackMates
 
         }
 
+        private void UserPhoto_MouseLeave(object sender, EventArgs e)
+        {
+            PictureBox b = (PictureBox)sender;
+            b.Controls.Clear();
+        }
+
+        private void UserPhoto_MouseEnter(object sender, EventArgs e)
+        {
+            Label AddNewPicture;
+            UserPhoto.Controls.Add(AddNewPicture = new Label { Text = "Add New Image", Dock = DockStyle.Bottom, FlatStyle = FlatStyle.Flat, BackColor = Color.FromArgb(200, Color.Black), ForeColor = Color.White, Font = new Font("Arial", 20, FontStyle.Regular), Height = 50 });
+          
+        }
+
+      
     }
 }
