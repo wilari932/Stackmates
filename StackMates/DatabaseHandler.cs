@@ -161,20 +161,22 @@ namespace StackMates
 
             if (UserLogin(username,password))
             {
+                username = EEnkryption.Encrypt(username);
+                password = EEnkryption.Encrypt(password);
                 Conection(true);
                 string s = "SELECT * FROM user WHERE UserName = '" + username + "' and (Password = '" + password + "')";
 
                 Querry = new MySqlCommand(s, Connector);
                 Querry.ExecuteNonQuery();
-                MySqlDataReader dataReader = Querry.ExecuteReader();
+                 Reader = Querry.ExecuteReader();
 
-                if (dataReader.HasRows)
-                {
-                    dataReader.Read();
-                    name.Text = EEnkryption.Decrypt(dataReader["UserName"].ToString());
+               if(Reader.HasRows)
+                    Reader.Read();
+                    name.Text = Reader["UserName"].ToString();
+                     name.Text = EEnkryption.Decrypt(name.Text);
                     try
                     {
-                        byte[] data = (byte[])dataReader["UserImage"];
+                        byte[] data = (byte[])Reader["UserImage"];
                         MemoryStream ms = new MemoryStream(data);
                         userimage.Image = Image.FromStream(ms);
                     }
@@ -184,7 +186,7 @@ namespace StackMates
                     }
 
 
-                }
+                
             }
 
         }
