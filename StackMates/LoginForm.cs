@@ -9,7 +9,7 @@ namespace StackMates
 {
     class LoginForm
     {
-       
+
 
         //Loginform Objects
         private Button LoginButton { get; set; }
@@ -34,13 +34,13 @@ namespace StackMates
         //END
         public LoginForm(MainForm a)
         {
-             b = a;
+            b = a;
             InitializeComponent();
 
         }
-        private void InitializeComponent( )
+        private void InitializeComponent()
         {
-           
+
             CreateLoginForm();
 
 
@@ -57,9 +57,9 @@ namespace StackMates
 
             };
 
-          TableLayoutPanel  EmptyPanel = new TableLayoutPanel
+            TableLayoutPanel EmptyPanel = new TableLayoutPanel
             {
-                
+
                 Dock = DockStyle.Fill,
 
 
@@ -85,16 +85,16 @@ namespace StackMates
                 ForeColor = Color.White,
                 Text = "Username",
                 Size = new System.Drawing.Size(300, 31),
-                Anchor = (AnchorStyles.Top ),
+                Anchor = (AnchorStyles.Top),
                 Font = new Font("Arial", 20, FontStyle.Regular),
-                
+
             };
             UsernameTxtBox = new TextBox
             {
-               Size = new System.Drawing.Size(300, 80),
+                Size = new System.Drawing.Size(300, 80),
                 Anchor = (AnchorStyles.Top),
-               Font = new Font("Arial", 20, FontStyle.Regular),
-                Padding = new Padding(0,0,0,0)
+                Font = new Font("Arial", 20, FontStyle.Regular),
+                Padding = new Padding(0, 0, 0, 0)
 
             };
             Label labelPassword = new Label
@@ -110,8 +110,8 @@ namespace StackMates
                 Size = new System.Drawing.Size(300, 80),
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Anchor = (AnchorStyles.Top),
-               PasswordChar = '*',
-                
+                PasswordChar = '*',
+
 
             };
             Label RegisterLabel = new Label
@@ -134,12 +134,12 @@ namespace StackMates
             RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
             RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
             RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 35));
-            
+
             RootPanel.Controls.Add(EmptyPanel);
             RootPanel.Controls.Add(labelUsername);
-             RootPanel.Controls.Add(UsernameTxtBox);
+            RootPanel.Controls.Add(UsernameTxtBox);
             RootPanel.Controls.Add(labelPassword);
-           RootPanel.Controls.Add(PasswordTxtBox);
+            RootPanel.Controls.Add(PasswordTxtBox);
             RootPanel.Controls.Add(LoginButton);
             RootPanel.Controls.Add(RegisterLabel);
 
@@ -155,7 +155,7 @@ namespace StackMates
         private void RegisterLabel_MouseEnter(object sender, EventArgs e)
         {
             Label a = (Label)sender;
-            
+
             a.ForeColor = Color.Red;
         }
 
@@ -173,7 +173,7 @@ namespace StackMates
 
 
             };
-           
+
             TableLayoutPanel EmptyPanel = new TableLayoutPanel
             {
 
@@ -222,12 +222,12 @@ namespace StackMates
                 Anchor = (AnchorStyles.Top),
                 Font = new Font("Arial", 20, FontStyle.Regular),
             };
-           NewNameTxtBox = new TextBox
+            NewNameTxtBox = new TextBox
             {
                 Size = new System.Drawing.Size(300, 80),
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Anchor = (AnchorStyles.Top),
-             
+
 
 
             };
@@ -273,8 +273,8 @@ namespace StackMates
                 Anchor = (AnchorStyles.Top),
                 Font = new Font("Arial", 20, FontStyle.Regular),
             };
-            NewConfirmPasswordTxtBox =  new TextBox
-             {
+            NewConfirmPasswordTxtBox = new TextBox
+            {
                 Size = new System.Drawing.Size(300, 80),
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Anchor = (AnchorStyles.Top),
@@ -282,7 +282,7 @@ namespace StackMates
 
 
             };
-           
+
 
             RootPanel.Controls.Add(EmptyPanel);
             RootPanel.Controls.Add(labelUsername);
@@ -304,21 +304,21 @@ namespace StackMates
         private void RegisterButton_Click(object sender, EventArgs e)
         {
 
-           
-                    if (Mysqldata.CreateUser(NewUserNameTxtBox.Text, NewNameTxtBox.Text, NewEmailTxtBox.Text, NewPasswordTxtBox.Text))
-                    {
-                        MessageBox.Show("användaren är Skapad");
-                        b.Controls.Clear();
-                        RootPanel.Controls.Clear();
-                        CreateLoginForm();
-                        b.Controls.Add(RootPanel);
-                        b.Size = new System.Drawing.Size(510, 510);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Gick Inte att skapa");
-                    }
-                
+
+            if (Mysqldata.CreateUser(NewUserNameTxtBox.Text, NewNameTxtBox.Text, NewEmailTxtBox.Text, NewPasswordTxtBox.Text))
+            {
+                MessageBox.Show("användaren är Skapad");
+                b.Controls.Clear();
+                RootPanel.Controls.Clear();
+                CreateLoginForm();
+                b.Controls.Add(RootPanel);
+                b.Size = new System.Drawing.Size(510, 510);
+            }
+            else
+            {
+                MessageBox.Show("Gick Inte att skapa");
+            }
+
         }
 
         private void RegisterLabel_Click(object sender, EventArgs e)
@@ -329,13 +329,13 @@ namespace StackMates
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-           if( Mysqldata.UserLogin(UsernameTxtBox.Text, PasswordTxtBox.Text))
+            if (Mysqldata.UserLogin(UsernameTxtBox.Text, PasswordTxtBox.Text))
             {
                 User = UsernameTxtBox.Text;
-                Password = PasswordTxtBox.Text; 
+                Password = PasswordTxtBox.Text;
                 UserPage = new UserPage(b, User, Password);
-               
-                
+
+
             }
             else
             {

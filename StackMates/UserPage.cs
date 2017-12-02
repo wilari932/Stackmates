@@ -19,7 +19,7 @@ namespace StackMates
         private MainForm b;
         private DatabaseHandler Database = new DatabaseHandler();
 
-        public  UserPage(MainForm a, string user,string password)
+        public UserPage(MainForm a, string user, string password)
         {
             User = user;
             UserPassword = password;
@@ -29,7 +29,7 @@ namespace StackMates
             UserControl();
             InitializeComponent();
 
-       }
+        }
 
         private void UserControl()
         {
@@ -40,7 +40,7 @@ namespace StackMates
 
         }
 
-      private void  InitializeComponent()
+        private void InitializeComponent()
         {
 
             RootPanel = new TableLayoutPanel
@@ -48,8 +48,8 @@ namespace StackMates
                 ColumnCount = 2,
                 Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(28, 135, 202),
-               
-                
+
+
 
 
 
@@ -64,7 +64,7 @@ namespace StackMates
                 Size = new System.Drawing.Size(250, 250),
                 BorderStyle = BorderStyle.Fixed3D,
                 SizeMode = PictureBoxSizeMode.StretchImage,
-                
+
             };
             Label labelUsername = new Label
             {
@@ -83,14 +83,14 @@ namespace StackMates
                 BorderStyle = BorderStyle.Fixed3D,
                 Font = new Font("Arial", 20, FontStyle.Regular),
             };
-           Database.ReadUserData(User, UserPassword, labelUsername, UserPhoto);
+            Database.ReadUserData(User, UserPassword, labelUsername, UserPhoto);
 
             UserPanel = new TableLayoutPanel
             {
                 RowCount = 3,
                 Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(28, 135, 202),
-               
+
 
             };
 
@@ -106,7 +106,7 @@ namespace StackMates
                 RowCount = 3,
                 Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(28, 135, 202),
-               
+
 
             };
 

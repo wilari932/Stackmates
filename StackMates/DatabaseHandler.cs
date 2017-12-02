@@ -1,37 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using System.Configuration;
+
 using System.Windows.Forms;
 using System.Drawing;
-using System.ComponentModel;
 using System.IO;
+using System.Configuration;
 
 namespace StackMates
 {
-    
+
     class DatabaseHandler
     {
         //Properties för Databas Uppkopling.
-       private static MySqlConnection Connector = null;
-        private ITypeDescriptorContext jpegByteArray;
-
+        private static MySqlConnection Connector = null;
         private MySqlCommand Querry { get; set; }
-        MySqlDataReader Reader { get; set; }
+       private MySqlDataReader Reader { get; set; }
+        private Enkryption EEnkryption = new Enkryption();
         // END
-     public DatabaseHandler()
+        public DatabaseHandler()
         {
+            
+
             try
             {
-                GetDBConnection();
+                GetDBConnection(EEnkryption.DecryptFromFile(@"Resources\ReadOnly.txt"));
 
-
+                
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show(e.ToString());
             }
@@ -39,12 +36,13 @@ namespace StackMates
         }
 
 
-        private static MySqlConnection GetDBConnection()
+        private static MySqlConnection GetDBConnection(string db)
         {
             if (Connector == null)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["conn"].ConnectionString;
-                Connector = new MySqlConnection(connectionString);
+                
+                Connector = new MySqlConnection(db);
+                
             }
             return Connector;
         }
@@ -53,7 +51,7 @@ namespace StackMates
         {
             try
             {
-               // (AES_ENCRYPT(@UserName, 'key12346123')
+                // (AES_ENCRYPT(@UserName, 'key12346123')
                 Conection(true);
                 Querry = new MySqlCommand("INSERT INTO user (UserName,Name,Email,Password) VALUES (@UserName,@Name,@Email,@Password)", Connector);
 
@@ -71,40 +69,40 @@ namespace StackMates
                 System.Windows.Forms.MessageBox.Show("Gick EJ");
                 Conection(false);
                 return false;
-               
+
             }
 
         }
 
         public bool UserLogin(string Username, string Password)
         {
-           Conection(true);
+            Conection(true);
             Querry = new MySqlCommand("SELECT UserName,Password FROM user where UserName=@UserName and Password=@Password", Connector);
 
-                Querry.Parameters.AddWithValue("@UserName", Username);
+            Querry.Parameters.AddWithValue("@UserName", Username);
 
-                Querry.Parameters.AddWithValue("@Password", Password);
+            Querry.Parameters.AddWithValue("@Password", Password);
 
-                Reader = Querry.ExecuteReader();
-           
+            Reader = Querry.ExecuteReader();
+
             if (Reader.Read())
-                {
+            {
                 Conection(false);
                 return true;
-                   
+
 
             }
-                else
-                {
+            else
+            {
                 Conection(false);
                 return false;
-               
+
             }
-           
+
         }
-        public void ReadUserData(string username, string password, Label name , PictureBox userimage)
+        public void ReadUserData(string username, string password, Label name, PictureBox userimage)
         {
-           if( UserLogin( username ,password))
+            if (UserLogin(username, password))
             {
                 Conection(true);
                 string s = "SELECT * FROM user WHERE UserName = '" + username + "' and (Password = '" + password + "')";
