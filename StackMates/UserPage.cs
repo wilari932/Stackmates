@@ -19,6 +19,7 @@ namespace StackMates
         private MainForm b;
         private DatabaseHandler Database = new DatabaseHandler();
         private Enkryption EEnkryption = new Enkryption();
+       
 
         public UserPage(MainForm a, string user, string password)
         {
@@ -136,6 +137,14 @@ namespace StackMates
 
         }
 
+
+        private void CreateSaerchEngine()
+        {
+
+        }
+
+
+
         private void UserPhoto_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Detta Fungerar inte just nu vi jobbar på detta !");
@@ -149,11 +158,17 @@ namespace StackMates
 
         private void UserPhoto_MouseEnter(object sender, EventArgs e)
         {
-            Label AddNewPicture;
-            UserPhoto.Controls.Add(AddNewPicture = new Label { Text = "Add New Image", Dock = DockStyle.Bottom, FlatStyle = FlatStyle.Flat, BackColor = Color.FromArgb(200, Color.Black), ForeColor = Color.White, Font = new Font("Arial", 20, FontStyle.Regular), Height = 50 });
-            
+            Button AddNewPicture;
+
+
+
+
+        UserPhoto.Controls.Add(AddNewPicture = new Button{ Text = "Add New Image", Dock = DockStyle.Bottom, FlatStyle = FlatStyle.Flat, BackColor = Color.FromArgb(200, Color.WhiteSmoke), Font = new Font("Arial", 20, FontStyle.Regular), Height = 50 , Enabled = false });
         }
 
-      
+        private void AddNewPicture_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Detta Fungerar inte just nu vi jobbar på detta !");
+        }
     }
 }
