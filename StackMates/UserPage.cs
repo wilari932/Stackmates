@@ -193,13 +193,14 @@ namespace StackMates
                imgloc = openFileDialog1.FileName.ToString();
                 UserPhoto.ImageLocation = imgloc;
             }
-
-            byte[] img = null;
-            FileStream fs = new FileStream(imgloc, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fs);
-            img = br.ReadBytes((int)fs.Length);
-            Database.UpLoaddateImage(User, UserPassword, img);
-
+            if (imgloc != null)
+            {
+                byte[] img = null;
+                FileStream fs = new FileStream(imgloc, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                img = br.ReadBytes((int)fs.Length);
+                Database.UpLoaddateImage(User, UserPassword, img);
+            }
             //  //Ask user to select Image
             //  OpenFileDialog dlg = new OpenFileDialog();
             //  dlg.InitialDirectory = @"C:\\";

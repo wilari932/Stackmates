@@ -228,7 +228,7 @@ namespace StackMates
                     }
                     catch
                     {
-                        MessageBox.Show("Du äger ingen bild för tilfället");
+                        MessageBox.Show("Du äger ingen bild för tilfället, Lägg till en bild !");
                         Conection(false);
                 }
 
