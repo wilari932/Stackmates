@@ -30,7 +30,7 @@ namespace StackMates
             UserPassword = password;
             b = a;
             b.Controls.Clear();
-            b.Size = new Size(700, 510);
+            b.Size = new Size(1300, 500);
             UserControl();
             InitializeComponent();
 
