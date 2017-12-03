@@ -121,7 +121,7 @@ namespace StackMates
 
             UserPanel2 = new TableLayoutPanel
             {
-                RowCount = 3,
+                RowCount = 4,
                 Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(34, 34, 34),
 
@@ -157,50 +157,93 @@ namespace StackMates
             TableLayoutPanel PostForm = new TableLayoutPanel
             {
                 RowCount = 2,
-                ColumnCount = 3,
+                ColumnCount = 1,
                 Size = new Size(400,300),
                 Anchor = AnchorStyles.Left| AnchorStyles.Right,
-               
-             
-                
-                
+                BackColor = Color.Gray
+
+
+
+
             };
 
             RichTextBox PostRIchbox = new RichTextBox
             {
                 ScrollBars = RichTextBoxScrollBars.Both,
                 DetectUrls = true,
-                Font = new Font("Arial", 10, FontStyle.Regular),
+                Font = new Font("Arial", 20, FontStyle.Regular),
                 Dock = DockStyle.Fill,
                 
               EnableAutoDragDrop = true,
             };
             Button postbutton = new Button
             {
-                Height = 30,
-                Anchor = AnchorStyles.Right| AnchorStyles.Top,
-                Font = new Font("Arial", 10, FontStyle.Regular),
+                Height = 45,
+                Anchor = AnchorStyles.Right| AnchorStyles.Top| AnchorStyles.Bottom,
+                Font = new Font("Arial", 12, FontStyle.Regular),
                 Text = "Send",
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.LightBlue,
                 
 
             };
-            PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
-            PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40));
-            PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
-            PostForm.RowStyles.Add(new RowStyle(SizeType.Percent, 90));
-            PostForm.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
-            PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill}, 0, 0);
+            //PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15));
+            //PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70));
+            //PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15));
+            PostForm.RowStyles.Add(new RowStyle(SizeType.Percent, 70));
+            PostForm.RowStyles.Add(new RowStyle(SizeType.Percent, 30));
+            //PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill}, 0, 0);
             PostForm.Controls.Add(PostRIchbox, 1, 0);
-            PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 2, 0);
-            PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 0, 1);
+            //PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 2, 0);
+            //PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 0, 1);
             PostForm.Controls.Add(postbutton, 1, 1);
-            PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 2, 1);
-           
-           
+            //PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 2, 1);
+            TableLayoutPanel rootNoticeform = new TableLayoutPanel
+            {
+              
+                ColumnCount = 2,
+                Size = new Size(400, 300),
+                 Dock = DockStyle.Fill,
+                BackColor = Color.Gray
+
+
+
+
+            };
+
+            TableLayoutPanel Noticeform = new TableLayoutPanel
+            {
+
+                
+                Dock = DockStyle.Fill,
+                BackColor = Color.Gray
+
+
+
+
+            };
+
+            TableLayoutPanel chatPanel = new TableLayoutPanel
+            {
+
+                Dock = DockStyle.Fill,
+                BackColor = Color.Gray
+
+
+
+            };
+
+
+
+
             UserPanel2.Controls.Add(SerchPanel);
+            UserPanel2.Controls.Add(new TableLayoutPanel {  Dock = DockStyle.Fill });
             UserPanel2.Controls.Add(PostForm);
+            UserPanel2.Controls.Add(rootNoticeform);
+            UserPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
+            UserPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 2));
+            UserPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 15));
+            UserPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 73));
 
 
 
