@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace StackMates
 {
@@ -17,6 +18,8 @@ namespace StackMates
         private TableLayoutPanel UserPanel2 { get; set; }
         private PictureBox UserPhoto { get; set; }
         private MainForm b;
+        private Label labelAcoountSettings;
+        private Label labelUsername;
         private DatabaseHandler Database = new DatabaseHandler();
         private Enkryption EEnkryption = new Enkryption();
        
@@ -75,7 +78,7 @@ namespace StackMates
             UserPhoto.Click += UserPhoto_Click;
            
          
-            Label labelUsername = new Label
+             labelUsername = new Label
             {
                 ForeColor = Color.Black,
                 Text = "Name: ",
@@ -86,7 +89,7 @@ namespace StackMates
             };
             Database.ReadUserData(User, UserPassword, labelUsername, UserPhoto);
 
-            Label labelAcoountSettings = new Label
+             labelAcoountSettings = new Label
             {
                 ForeColor = Color.Black,
                 Text = "Account Settings: ",
@@ -180,16 +183,118 @@ namespace StackMates
 
         private void UserPhoto_Click(object sender, EventArgs e)
         {
-            OpenFileDialog open = new OpenFileDialog();
-            open.Filter = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg|Png(*Png)|*.Png";
-            if (open.ShowDialog() == DialogResult.OK)
-            {
-                Image img = new Bitmap(open.FileName);
+            string imgloc = null;
 
-                UserPhoto.Image = img.GetThumbnailImage(300, 300, null, new IntPtr());
-                open.RestoreDirectory = true;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "(*.BMP;*.JPG;*.GIF;*.JPEG;*.PNG)|*.BMP;*.JPG;*.GIF;*.JPEG;*.PNG";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+             
+               imgloc = openFileDialog1.FileName.ToString();
+                UserPhoto.ImageLocation = imgloc;
             }
+
+            byte[] img = null;
+            FileStream fs = new FileStream(imgloc, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            img = br.ReadBytes((int)fs.Length);
+            Database.UpLoaddateImage(User, UserPassword, img);
+
+            //  //Ask user to select Image
+            //  OpenFileDialog dlg = new OpenFileDialog();
+            //  dlg.InitialDirectory = @"C:\\";
+            //  dlg.Title = "Select Image File";
+
+            //  dlg.Filter = "Image Files  (*.jpg ; *.jpeg ; *.png ; *.gif ; *.tiff ; *.nef) | *.jpg; *.jpeg; *.png; *.gif; *.tiff; *.nef";
+            //   dlg.ShowDialog();
+
+            //string  FileLocation = dlg.FileName;
+
+
+
+            //  if (FileLocation != string.Empty && FileLocation != null)
+            //  {
+
+            //      if (File.Exists(FileLocation))
+            //      {
+            //          UserPhoto.Image = Image.FromFile(FileLocation);
+            //          MemoryStream ms = new MemoryStream();
+            //          UserPhoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            //         byte[] a =  ms.ToArray();
+            //          Database.UpLoaddateImage(User, UserPassword, a);
+            //      }
+
+            //  }
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Image i= null;
+        //int maxImageSize = 2097152;
+        //Image img;
+        //OpenFileDialog open = new OpenFileDialog();
+        //open.Filter = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg|Png(*Png)|*.Png";
+        //if (open.ShowDialog() == DialogResult.OK)
+        //{
+        //     img = new Bitmap(open.FileName);
+
+        //    UserPhoto.Image = img.GetThumbnailImage(300, 300, null, new IntPtr());
+        //    string FileLocation = open.FileName;
+
+        //    if (FileLocation != string.Empty && FileLocation != null)
+        //    {
+
+
+        //       //Get file information and calculate the filesize
+        //       FileInfo info = new FileInfo(FileLocation);
+        //        long fileSize = info.Length;
+
+        //        //reasign the filesize to calculated filesize
+        //        maxImageSize = (Int32)fileSize;
+
+        //        if (File.Exists(FileLocation))
+        //        {
+        //            //Retreave image from file and binary it to Object image
+        //            using (FileStream stream = File.Open(FileLocation, FileMode.Open))
+        //            {
+        //                BinaryReader br = new BinaryReader(stream);
+        //                byte[] data = br.ReadBytes(maxImageSize);
+        //            i  = new Image(open.SafeFileName, data, fileSize);
+        //            }
+        //        }
+
+
+
+
+
+    
+     
 
         private void UserPhoto_MouseLeave(object sender, EventArgs e)
         {

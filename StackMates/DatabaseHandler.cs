@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 using System.Configuration;
+using System.Runtime.Remoting.Messaging;
 
 namespace StackMates
 {
@@ -147,6 +148,7 @@ namespace StackMates
             }
             catch(Exception e)
             {
+                Conection(false);
                 MessageBox.Show(e.ToString());
                 return false;
             }
@@ -155,6 +157,50 @@ namespace StackMates
 
 
         }
+
+        public bool UpLoaddateImage(string username, string password, byte[]file)
+        {
+            if (UserLogin(username, password))
+            {
+              
+                username = EEnkryption.Encrypt(username);
+                password = EEnkryption.Encrypt(password);
+                Conection(true);
+                string s = "SELECT * FROM user WHERE UserName = '" + username + "' and (Password = '" + password + "')";
+                Querry = new MySqlCommand(s, Connector);
+                Reader = Querry.ExecuteReader();
+
+
+                if (Reader.Read())
+                {
+
+                    Conection(false);
+                    Conection(true);
+                    string s2 = "UPDATE user SET UserImage=@UserImage WHERE UserName=@UserName ";
+
+
+                    Querry = new MySqlCommand(s2, Connector);
+
+                    Querry.Parameters.Add(new MySqlParameter("@UserImage", file));
+                    Querry.Parameters.Add(new MySqlParameter("@UserName", username));
+
+                    Querry.ExecuteReader();
+                    Conection(false);
+
+
+
+
+                }
+
+
+            }
+            
+            Conection(false);
+            return false;
+
+
+        }
+
         public void ReadUserData(string username, string password, Label name, PictureBox userimage)
         {
          
@@ -183,11 +229,13 @@ namespace StackMates
                     catch
                     {
                         MessageBox.Show("Du äger ingen bild för tilfället");
-                    }
+                        Conection(false);
+                }
 
-
+                Conection(false);
                 
             }
+            Conection(false);
 
         }
         private void Conection(bool Isopen)
