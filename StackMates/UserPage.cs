@@ -154,10 +154,54 @@ namespace StackMates
             SerchPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,20));
             SerchPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80));
 
+            TableLayoutPanel PostForm = new TableLayoutPanel
+            {
+                RowCount = 2,
+                ColumnCount = 3,
+                Size = new Size(400,300),
+                Anchor = AnchorStyles.Left| AnchorStyles.Right,
+               
+             
+                
+                
+            };
 
+            RichTextBox PostRIchbox = new RichTextBox
+            {
+                ScrollBars = RichTextBoxScrollBars.Both,
+                DetectUrls = true,
+                Font = new Font("Arial", 10, FontStyle.Regular),
+                Dock = DockStyle.Fill,
+                
+              EnableAutoDragDrop = true,
+            };
+            Button postbutton = new Button
+            {
+                Height = 30,
+                Anchor = AnchorStyles.Right| AnchorStyles.Top,
+                Font = new Font("Arial", 10, FontStyle.Regular),
+                Text = "Send",
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.LightBlue,
+                
 
-
+            };
+            PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
+            PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40));
+            PostForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
+            PostForm.RowStyles.Add(new RowStyle(SizeType.Percent, 90));
+            PostForm.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
+            PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill}, 0, 0);
+            PostForm.Controls.Add(PostRIchbox, 1, 0);
+            PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 2, 0);
+            PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 0, 1);
+            PostForm.Controls.Add(postbutton, 1, 1);
+            PostForm.Controls.Add(new TableLayoutPanel { Dock = DockStyle.Fill }, 2, 1);
+           
+           
             UserPanel2.Controls.Add(SerchPanel);
+            UserPanel2.Controls.Add(PostForm);
+
 
 
             RootPanel.Controls.Add(UserPanel);
