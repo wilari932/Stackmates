@@ -1,0 +1,14 @@
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\bin\Debug\Stackmates.1.2.exe.config
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\bin\Debug\Stackmates.1.2.exe
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\bin\Debug\Stackmates.1.2.pdb
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates.1.2.csprojResolveAssemblyReference.cache
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates._1._2.Properties.Resources.resources
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates._1._2.RegisterForm.resources
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates.1.2.csproj.GenerateResource.Cache
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates.1.2.csproj.CoreCompileInputs.cache
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates.1.2.exe
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates.1.2.pdb
+c:\users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates._1._2.Form1.resources
+C:\Users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\bin\Debug\MySql.Data.dll
+C:\Users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\bin\Debug\MySql.Data.xml
+C:\Users\wilirambo\source\repos\Stackmates.1.2\Stackmates.1.2\obj\Debug\Stackmates._1._2.UserPage.resources

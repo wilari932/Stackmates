@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+
+using System.IO;
+using System.Security.Cryptography;
 
 
-namespace StackMates
+
+namespace Stackmates._1._2
+{
+    class Enkryption
     {
-        class Enkryption
-        {
 
 
         public Enkryption()
@@ -18,28 +19,28 @@ namespace StackMates
 
         }
 
-            public string Encrypt( string plainText)
-            {
+        public string Encrypt(string plainText)
+        {
 
-                try
-                {
+            try
+            {
 
                 string pH = null;
                 string sK = null;
                 string vK = null;
 
 
-                string path = @"Resources\Conf.txt";
+                string path = @"Files\Conf.txt";
 
                 List<string> ReadLines = File.ReadAllLines(path).ToList();
                 foreach (string lines in ReadLines)
                 {
-                 string[] entries = lines.Split(',');
-                  pH = entries[1];
-                  sK = entries[2];
-                  vK = entries[2];
+                    string[] entries = lines.Split(',');
+                    pH = entries[1];
+                    sK = entries[2];
+                    vK = entries[2];
                 }
-               
+
                 byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
                 byte[] keyBytes = new Rfc2898DeriveBytes(pH, Encoding.ASCII.GetBytes(sK)).GetBytes(256 / 8);
@@ -63,17 +64,17 @@ namespace StackMates
                 return Convert.ToBase64String(cipherTextBytes);
 
             }
-                catch (Exception e)
-                {
+            catch (Exception e)
+            {
                 System.Windows.Forms.MessageBox.Show(e.ToString());
                 return null;
-               
-                }
+
             }
+        }
 
         public string DecryptFromFile(string path)
         {
-        
+
             string ReadLines = File.ReadAllText(path);
             Decrypt(ReadLines);
             return Decrypt(ReadLines);
@@ -87,7 +88,7 @@ namespace StackMates
 
         public string Ph()
         {
-            string path = @"Resources\Conf.txt";
+            string path = @"Files\Conf.txt";
             string ph = null;
             List<string> ReadLines = File.ReadAllLines(path).ToList();
             foreach (string lines in ReadLines)
@@ -101,7 +102,7 @@ namespace StackMates
             return ph;
 
 
-            }
+        }
 
 
 
@@ -112,12 +113,12 @@ namespace StackMates
         {
             try
             {
-              
+
 
                 string pH = null;
                 string sK = null;
                 string vK = null;
-                string path = @"Resources\Conf.txt";
+                string path = @"Files\Conf.txt";
 
                 List<string> ReadLines = File.ReadAllLines(path).ToList();
                 foreach (string lines in ReadLines)
@@ -141,14 +142,14 @@ namespace StackMates
                 cryptoStream.Close();
 
 
-            
+
                 return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount).TrimEnd("\0".ToCharArray());
 
             }
             catch
             {
                 return null;
-                
+
             }
 
 
@@ -156,7 +157,7 @@ namespace StackMates
         }
 
 
-      
+
 
 
 
@@ -170,7 +171,3 @@ namespace StackMates
 
     }
 }
-
-
-
-

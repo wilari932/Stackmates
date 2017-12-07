@@ -1,13 +1,13 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
-
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 using System.Configuration;
 using System.Runtime.Remoting.Messaging;
 
-namespace StackMates
+namespace Stackmates._1._2
+
 {
 
     class DatabaseHandler
@@ -15,18 +15,18 @@ namespace StackMates
         //Properties för Databas Uppkopling.
         private static MySqlConnection Connector = null;
         private MySqlCommand Querry { get; set; }
-       private MySqlDataReader Reader { get; set; }
+        private MySqlDataReader Reader { get; set; }
         private Enkryption EEnkryption = new Enkryption();
         // END
         public DatabaseHandler()
         {
-            
+
 
             try
             {
-                GetDBConnection(EEnkryption.DecryptFromFile(@"Resources\ReadOnly.txt"));
+                GetDBConnection(EEnkryption.DecryptFromFile(@"Files\ReadOnly.txt"));
 
-                
+
 
             }
             catch (Exception e)
@@ -41,9 +41,9 @@ namespace StackMates
         {
             if (Connector == null)
             {
-                
+
                 Connector = new MySqlConnection(db);
-                
+
             }
             return Connector;
         }
@@ -61,9 +61,9 @@ namespace StackMates
                 Conection(true);
                 Querry = new MySqlCommand("INSERT INTO user (UserName,Name,Email,Password) VALUES (@UserName,@Name,@Email,@Password)", Connector);
 
-                MySqlParameter[] param = new MySqlParameter[4] ;
+                MySqlParameter[] param = new MySqlParameter[4];
 
-                for(int i= 0; i< param.Length; i++)
+                for (int i = 0; i < param.Length; i++)
                 {
                     param[i] = new MySqlParameter();
                 }
@@ -79,16 +79,16 @@ namespace StackMates
 
                 foreach (MySqlParameter s in param)
                 {
-                 
+
                     Querry.Parameters.Add(s);
                 }
-              
+
                 Querry.ExecuteReader();
                 System.Windows.Forms.MessageBox.Show("Det gick");
                 Conection(false);
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show("Gick EJ" + e.ToString());
                 Conection(false);
@@ -146,23 +146,23 @@ namespace StackMates
 
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Conection(false);
                 MessageBox.Show(e.ToString());
                 return false;
             }
-            
-          
+
+
 
 
         }
 
-        public bool UpLoaddateImage(string username, string password, byte[]file)
+        public bool UpLoaddateImage(string username, string password, byte[] file)
         {
             if (UserLogin(username, password))
             {
-              
+
                 username = EEnkryption.Encrypt(username);
                 password = EEnkryption.Encrypt(password);
                 Conection(true);
@@ -194,18 +194,56 @@ namespace StackMates
 
 
             }
-            
+
             Conection(false);
             return false;
 
 
         }
 
+        public void SearchEngine(string username, string password, string usersearch, Label name, PictureBox picture)
+        {
+
+            if (UserLogin(username, password))
+            {
+                username = EEnkryption.Encrypt(username);
+                password = EEnkryption.Encrypt(password);
+                usersearch = EEnkryption.Encrypt(usersearch);
+                Conection(true);
+                string s = "SELECT * FROM user WHERE UserName = LIKE '" + usersearch + '%' + "'   ";
+
+                Querry = new MySqlCommand(s, Connector);
+                Querry.ExecuteNonQuery();
+                Reader = Querry.ExecuteReader();
+
+                if (Reader.HasRows)
+                    Reader.Read();
+                name.Text = Reader["UserName"].ToString();
+                name.Text = EEnkryption.Decrypt(name.Text);
+                try
+                {
+                    byte[] data = (byte[])Reader["UserImage"];
+                    MemoryStream ms = new MemoryStream(data);
+                    picture.Image = Image.FromStream(ms);
+                }
+                catch
+                {
+                    MessageBox.Show("Du äger ingen bild för tilfället, Lägg till en bild !");
+                    Conection(false);
+                }
+
+                Conection(false);
+
+            }
+            Conection(false);
+
+        }
+
         public void ReadUserData(string username, string password, Label name, PictureBox userimage)
         {
-         
 
-            if (UserLogin(username,password))
+
+            if (UserLogin(username, password))
             {
                 username = EEnkryption.Encrypt(username);
                 password = EEnkryption.Encrypt(password);
@@ -214,26 +252,26 @@ namespace StackMates
 
                 Querry = new MySqlCommand(s, Connector);
                 Querry.ExecuteNonQuery();
-                 Reader = Querry.ExecuteReader();
+                Reader = Querry.ExecuteReader();
 
-               if(Reader.HasRows)
+                if (Reader.HasRows)
                     Reader.Read();
-                    name.Text = Reader["UserName"].ToString();
-                     name.Text = EEnkryption.Decrypt(name.Text);
-                    try
-                    {
-                        byte[] data = (byte[])Reader["UserImage"];
-                        MemoryStream ms = new MemoryStream(data);
-                        userimage.Image = Image.FromStream(ms);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Du äger ingen bild för tilfället, Lägg till en bild !");
-                        Conection(false);
+                name.Text = Reader["UserName"].ToString();
+                name.Text = EEnkryption.Decrypt(name.Text);
+                try
+                {
+                    byte[] data = (byte[])Reader["UserImage"];
+                    MemoryStream ms = new MemoryStream(data);
+                    userimage.Image = Image.FromStream(ms);
+                }
+                catch
+                {
+                    MessageBox.Show("Du äger ingen bild för tilfället, Lägg till en bild !");
+                    Conection(false);
                 }
 
                 Conection(false);
-                
+
             }
             Conection(false);
 
@@ -255,3 +293,4 @@ namespace StackMates
 
     }
 }
+

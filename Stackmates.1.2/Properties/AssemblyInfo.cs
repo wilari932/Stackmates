@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StackMates")]
+[assembly: AssemblyTitle("Stackmates.1.2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("StackMates")]
+[assembly: AssemblyProduct("Stackmates.1.2")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ec987df2-6758-4313-b228-7d07f0688652")]
+[assembly: Guid("d33c1206-e3c7-4d51-bf93-d3dcc20d5e1a")]
 
 // Version information for an assembly consists of the following four values:
 //
