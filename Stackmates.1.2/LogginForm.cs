@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace Stackmates._1._2
 {
-    public partial class Form1 : Form
+    public partial class LogginForm : Form
     {
         RegisterForm OpenRegister;
         DatabaseHandler HandleData = new DatabaseHandler();
 
-        public Form1()
+        public LogginForm()
         {
             InitializeComponent();
         }

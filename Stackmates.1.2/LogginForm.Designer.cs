@@ -1,6 +1,6 @@
 ﻿namespace Stackmates._1._2
 {
-    partial class Form1
+    partial class LogginForm
     {
         /// <summary>
         /// Required designer variable.
