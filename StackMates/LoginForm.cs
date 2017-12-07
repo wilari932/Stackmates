@@ -5,16 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+
 namespace StackMates
 {
     class LoginForm
     {
-
-
         //Loginform Objects
+        /*
         private Button LoginButton { get; set; }
         private TextBox UsernameTxtBox { get; set; }
         private TextBox PasswordTxtBox { get; set; }
+        */
+        //New LogInForm Objects
+        private Label UserNameLoginText { get; set; }
+        private Label PasswordText { get; set; }
+        private Button LogInButton { get; set; }
+        private RichTextBox UsernameTextBox { get; set; }
+        private RichTextBox PasswordTextBox { get; set; }
+        private Label NewAccountLabel { get; set; }
+        private Button CloseButton { get; set; }
         //END
         //RegisterForm Object
         private TextBox NewUserNameTxtBox { get; set; }
@@ -24,126 +33,108 @@ namespace StackMates
         private TextBox NewConfirmPasswordTxtBox { get; set; }
         private Button RegisterButton { get; set; }
         //END
-        //Other Classes Objects
+
         private DatabaseHandler Mysqldata = new DatabaseHandler();
         public TableLayoutPanel RootPanel { get; set; }
-        private UserPage UserPage;
         private MainForm b;
-        private string User;
-        private string Password;
-        //END
+
         public LoginForm(MainForm a)
         {
             b = a;
             InitializeComponent();
-
         }
-        private void InitializeComponent()
+        private void InitializeComponent( )
         {
-
             CreateLoginForm();
-
-
         }
+
         private void CreateLoginForm()
         {
             RootPanel = new TableLayoutPanel
             {
-                RowCount = 7,
-                Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(28, 135, 202)
-
-
-
+                BackColor = Color.DimGray,
+                Name = "MainForm",
+                ClientSize = new Size(470, 470),
             };
 
-            TableLayoutPanel EmptyPanel = new TableLayoutPanel
+            TableLayoutPanel  EmptyPanel = new TableLayoutPanel
             {
-
                 Dock = DockStyle.Fill,
-
-
-
             };
 
-
-            LoginButton = new Button
+            LogInButton = new Button
             {
-                Text = "Logga in",
+                BackColor = Color.Green,
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.LightGreen,
-                Size = new System.Drawing.Size(300, 50),
-                Font = new Font("Arial", 20, FontStyle.Regular),
-                Anchor = (AnchorStyles.Top)
-
-
-
+                Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                Location = new Point(67, 258),
+                Name = "LogInButton",
+                Size = new Size(75, 40),
+                TabIndex = 5,
+                Text = "Log In",
+                UseVisualStyleBackColor = false,
             };
-            LoginButton.Click += LoginButton_Click;
-            Label labelUsername = new Label
+            LogInButton.FlatAppearance.BorderSize = 0;
+            LogInButton.Click += LoginButton_Click;
+
+            Label UserNameLoginText = new Label
             {
-                ForeColor = Color.White,
+                Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
+                Location = new Point(62, 79),
+                Name = "UserNameLoginText",
+                Size = new Size(133, 30),
                 Text = "Username",
-                Size = new System.Drawing.Size(300, 31),
-                Anchor = (AnchorStyles.Top),
-                Font = new Font("Arial", 20, FontStyle.Regular),
-
             };
-            UsernameTxtBox = new TextBox
+            UsernameTextBox = new RichTextBox
             {
-                Size = new System.Drawing.Size(300, 80),
-                Anchor = (AnchorStyles.Top),
-                Font = new Font("Arial", 20, FontStyle.Regular),
-                Padding = new Padding(0, 0, 0, 0)
-
+                BorderStyle = BorderStyle.None,
+                Location = new Point(67, 112),
+                Name = "UsernameTextBox",
+                Size = new Size(250, 30),
+                TabIndex = 6,
+                Text = "",
             };
-            Label labelPassword = new Label
+            Label PasswordText = new Label
             {
-                ForeColor = Color.White,
+                AutoSize = true,
+                Font = new Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                Location = new Point(62, 169),
+                Name = "PasswordText",
+                Size = new Size(122, 30),
+                TabIndex = 3,
                 Text = "Password",
-                Size = new System.Drawing.Size(300, 31),
-                Anchor = (AnchorStyles.Top),
-                Font = new Font("Arial", 20, FontStyle.Regular),
             };
-            PasswordTxtBox = new TextBox
+            PasswordTextBox = new RichTextBox
             {
-                Size = new System.Drawing.Size(300, 80),
-                Font = new Font("Arial", 20, FontStyle.Regular),
-                Anchor = (AnchorStyles.Top),
-                PasswordChar = '*',
-
-
+                BorderStyle = BorderStyle.None,
+                Location = new Point(67, 202),
+                Name = "PasswordTextBox",
+                Size = new Size(250, 30),
+                TabIndex = 7,
+                Text = "",
             };
-            Label RegisterLabel = new Label
+            Label NewAccountLabel = new Label
             {
+                AutoSize = true,
+                Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0))),
                 ForeColor = Color.White,
-                Text = "Click here to create a new account!",
-                Size = new System.Drawing.Size(300, 31),
-                Anchor = (AnchorStyles.Top),
-                Font = new Font("Arial", 13, FontStyle.Regular),
-                Cursor = Cursors.Hand,
+                Location = new Point(320, 444),
+                Name = "NewAccountLabel",
+                Size = new Size(137, 17),
+                TabIndex = 8,
+                Text = "New to this service?",
             };
-            RegisterLabel.Click += RegisterLabel_Click;
-            RegisterLabel.MouseEnter += RegisterLabel_MouseEnter;
-            RegisterLabel.MouseLeave += RegisterLabel_MouseLeave;
-
-            RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 15));
-            RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 5));
-            RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
-            RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 5));
-            RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
-            RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
-            RootPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 35));
-
+            NewAccountLabel.Click += RegisterLabel_Click;
+            NewAccountLabel.MouseEnter += RegisterLabel_MouseEnter;
+            NewAccountLabel.MouseLeave += RegisterLabel_MouseLeave;
+            
             RootPanel.Controls.Add(EmptyPanel);
-            RootPanel.Controls.Add(labelUsername);
-            RootPanel.Controls.Add(UsernameTxtBox);
-            RootPanel.Controls.Add(labelPassword);
-            RootPanel.Controls.Add(PasswordTxtBox);
-            RootPanel.Controls.Add(LoginButton);
-            RootPanel.Controls.Add(RegisterLabel);
-
-
+            RootPanel.Controls.Add(UserNameLoginText);
+            RootPanel.Controls.Add(UsernameTextBox);
+            RootPanel.Controls.Add(PasswordText);
+            RootPanel.Controls.Add(PasswordTextBox);
+            RootPanel.Controls.Add(LogInButton);
+            RootPanel.Controls.Add(NewAccountLabel);
         }
 
         private void RegisterLabel_MouseLeave(object sender, EventArgs e)
@@ -155,7 +146,6 @@ namespace StackMates
         private void RegisterLabel_MouseEnter(object sender, EventArgs e)
         {
             Label a = (Label)sender;
-
             a.ForeColor = Color.Red;
         }
 
@@ -166,21 +156,15 @@ namespace StackMates
 
             RootPanel = new TableLayoutPanel
             {
-                RowCount = 12,
-                Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(28, 135, 202)
-
-
-
+                BackColor = Color.DimGray,
+                //ClientSize = new Size(470, 470),
+                Name = "MainForm",
             };
-
+            //RootPanel.Controls.FormBorderStyle = FormBorderStyle.None,
+           
             TableLayoutPanel EmptyPanel = new TableLayoutPanel
             {
-
                 Dock = DockStyle.Fill,
-
-
-
             };
 
 
@@ -189,14 +173,12 @@ namespace StackMates
                 Text = "Register",
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.LightGreen,
-                Size = new System.Drawing.Size(300, 50),
+                Size = new System.Drawing.Size(300, 50), 
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Anchor = (AnchorStyles.Top)
-
-
-
             };
             RegisterButton.Click += RegisterButton_Click;
+
             Label labelUsername = new Label
             {
                 ForeColor = Color.White,
@@ -204,7 +186,6 @@ namespace StackMates
                 Size = new System.Drawing.Size(300, 31),
                 Anchor = (AnchorStyles.Top),
                 Font = new Font("Arial", 20, FontStyle.Regular),
-
             };
             NewUserNameTxtBox = new TextBox
             {
@@ -227,9 +208,6 @@ namespace StackMates
                 Size = new System.Drawing.Size(300, 80),
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Anchor = (AnchorStyles.Top),
-
-
-
             };
             Label labelEmail = new Label
             {
@@ -244,9 +222,6 @@ namespace StackMates
                 Size = new System.Drawing.Size(300, 80),
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Anchor = (AnchorStyles.Top),
-
-
-
             };
             Label labelPassword = new Label
             {
@@ -261,9 +236,6 @@ namespace StackMates
                 Size = new System.Drawing.Size(300, 80),
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Anchor = (AnchorStyles.Top),
-
-
-
             };
             Label labelPasswordConfirm = new Label
             {
@@ -273,16 +245,12 @@ namespace StackMates
                 Anchor = (AnchorStyles.Top),
                 Font = new Font("Arial", 20, FontStyle.Regular),
             };
-            NewConfirmPasswordTxtBox = new TextBox
+            NewConfirmPasswordTxtBox =  new TextBox
             {
                 Size = new System.Drawing.Size(300, 80),
                 Font = new Font("Arial", 20, FontStyle.Regular),
                 Anchor = (AnchorStyles.Top),
-
-
-
             };
-
 
             RootPanel.Controls.Add(EmptyPanel);
             RootPanel.Controls.Add(labelUsername);
@@ -298,13 +266,10 @@ namespace StackMates
             RootPanel.Controls.Add(RegisterButton);
             b.Controls.Add(RootPanel);
             b.Height = 700;
-
         }
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-
-
             if (Mysqldata.CreateUser(NewUserNameTxtBox.Text, NewNameTxtBox.Text, NewEmailTxtBox.Text, NewPasswordTxtBox.Text))
             {
                 MessageBox.Show("användaren är Skapad");
@@ -318,29 +283,22 @@ namespace StackMates
             {
                 MessageBox.Show("Gick Inte att skapa");
             }
-
         }
 
         private void RegisterLabel_Click(object sender, EventArgs e)
         {
             CreateRegisterForm();
-
         }
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            if (Mysqldata.UserLogin(UsernameTxtBox.Text, PasswordTxtBox.Text))
-            {
-                User = UsernameTxtBox.Text;
-                Password = PasswordTxtBox.Text;
-                UserPage = new UserPage(b, User, Password);
-
-
-            }
+           if( Mysqldata.UserLogin(UsernameTextBox.Text, PasswordTextBox.Text))
+           {
+                MessageBox.Show("Välkomen");
+           }
             else
             {
                 MessageBox.Show("Användaren Finns ej");
-
             }
         }
     }
