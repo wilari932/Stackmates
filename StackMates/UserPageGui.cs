@@ -9,7 +9,7 @@ using System.IO;
 
 namespace StackMates
 {
-    class UserPage
+    class UserPageGui
     {
         private string User;
         private string UserPassword;
@@ -24,7 +24,7 @@ namespace StackMates
         private Enkryption EEnkryption = new Enkryption();
        
 
-        public UserPage(MainForm a, string user, string password)
+        public UserPageGui(MainForm a, string user, string password)
         {
             User = user;
             UserPassword = password;

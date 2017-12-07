@@ -59,7 +59,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserPage.cs" />
+    <Compile Include="UserPageGui.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

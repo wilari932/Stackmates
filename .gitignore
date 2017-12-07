@@ -8,3 +8,10 @@
 *.pdb
 StackMates/obj/Debug/StackMates.pdb
 *.ide
+*.exe
+.vs/StackMates/v15/.suo
+*.exe
+*.pdb
+*.exe
+*.cache
+*.csproj

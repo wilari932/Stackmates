@@ -37,6 +37,7 @@ namespace StackMates
         private DatabaseHandler Mysqldata = new DatabaseHandler();
         public TableLayoutPanel RootPanel { get; set; }
         private MainForm b;
+        private UserPageGui userPage;
 
         public LoginForm(MainForm a)
         {
@@ -294,7 +295,8 @@ namespace StackMates
         {
            if( Mysqldata.UserLogin(UsernameTextBox.Text, PasswordTextBox.Text))
            {
-                MessageBox.Show("Välkomen");
+                userPage = new UserPageGui(b,UsernameTextBox.Text,PasswordTextBox.Text);
+               
            }
             else
             {
